@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google Search Console - Sitemaps</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body data-page="sitemaps">
+  <div id="gscLoadingBar" class="gsc-loading-bar"></div>
+  <div id="gscLoadingOverlay" class="gsc-loading-overlay"></div>
+
+  <div class="gsc-app d-flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="gsc-sidebar d-flex flex-column">
+      <div class="gsc-sidebar-header d-flex align-items-center justify-content-between mb-3">
+        <button class="btn btn-link d-lg-none p-0 me-2" id="closeSidebarBtn" aria-label="Close sidebar">
+          <span class="material-icons">close</span>
+        </button>
+        <div class="d-flex align-items-center gap-2">
+          <div class="gsc-logo-icon">
+            <span class="logo-block logo-blue"></span>
+            <span class="logo-block logo-red"></span>
+            <span class="logo-block logo-yellow"></span>
+            <span class="logo-block logo-green"></span>
+          </div>
+          <span class="gsc-logo-text">Google Search Console</span>
+        </div>
+      </div>
+
+      <nav class="gsc-nav flex-grow-1">
+
+        <div class="p-2">
+          <div class="gsc-property-selector position-relative">
+            <button class="btn btn-light border rounded-pill gsc-property-btn d-flex align-items-center gap-2" id="propertyBtn">
+              <span class="material-icons">search</span>
+              <span id="selectedPropertyLabel">Search property</span>
+              <span class="material-icons">arrow_drop_down</span>
+            </button>
+
+            <div class="gsc-property-dropdown shadow" id="propertyDropdown"></div>
+          </div>
+        </div>
+
+        <ul class="list-unstyled m-0">
+          <li><a href="index.html" class="gsc-nav-item active">
+              <span class="material-icons gsc-nav-icon">analytics</span> Overview
+            </a></li>
+
+          <li><a href="performance.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">show_chart</span> Performance
+            </a></li>
+
+          <li><a href="url_inspection.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">link</span> URL inspection
+            </a></li>
+        </ul>
+
+        <div class="gsc-nav-section-label">Indexing</div>
+        <ul class="list-unstyled m-0">
+          <li><a href="pages.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">article</span> Pages
+            </a></li>
+          <li><a href="video_pages.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">image</span> Video pages
+            </a></li>
+          <li><a href="sitemaps.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">book</span> Sitemaps
+            </a></li>
+        </ul>
+
+        <div class="gsc-nav-section-label">Experience</div>
+        <ul class="list-unstyled m-0">
+          <li><a href="core_web_vitals.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">speed</span> Core Web Vitals
+            </a></li>
+        </ul>
+
+        <div class="gsc-nav-section-label">Security & Manual Actions</div>
+        <ul class="list-unstyled m-0">
+          <li><a href="security_issues.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">security</span> Security issues
+            </a></li>
+        </ul>
+
+        <div class="gsc-nav-section-label">Legacy tools</div>
+        <ul class="list-unstyled m-0">
+          <li><a href="legacy_tools.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">build</span> Legacy tools
+            </a></li>
+        </ul>
+
+        <div class="gsc-nav-section-label">Settings</div>
+        <ul class="list-unstyled m-0">
+          <li><a href="settings.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">settings</span> Settings
+            </a></li>
+        </ul>
+
+      </nav>
+
+      <div class="gsc-sidebar-footer small text-muted">
+        © 2025 Google Clone – Demo UI
+      </div>
+    </aside>
+
+    <!-- Main area -->
+    <div class="gsc-main flex-grow-1 d-flex flex-column">
+      <!-- Top bar -->
+      <header class="gsc-topbar">
+
+        <div class="gsc-center-search">
+          <div class="gsc-search-box">
+            <span class="material-icons search-icon">search</span>
+            <input id="inspectInput" type="text" placeholder='Inspect any URL in "https://domain.com/"'>
+          </div>
+        </div>
+
+        <div class="gsc-right-icons">
+          <span class="material-icons gsc-top-icon">help_outline</span>
+          <span class="material-icons gsc-top-icon">notifications_none</span>
+          <span class="material-icons gsc-top-icon">settings</span>
+          <div class="gsc-avatar">K</div>
+        </div>
+
+      </header>
+      <!-- Content -->
+      <main class="gsc-content flex-grow-1">
+        <h5 class="mb-3">Sitemaps</h5>
+
+        <section class="card gsc-card mb-4">
+          <div class="card-body">
+            <div class="mb-3">
+              <button class="btn btn-primary btn-sm">Add sitemap</button>
+            </div>
+            <div class="gsc-chart-wrapper" style="height:220px;">
+              <canvas id="sitemapsChart"></canvas>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- Custom JS -->
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Google Search Console - Overview</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Chart.js -->
+  <script src="node_modules/chart.js/dist/chart.js"></script>
+</head>
+
+<body data-page="overview">
+
+  <div id="gscLoadingBar" class="gsc-loading-bar"></div>
+  <div id="gscLoadingOverlay" class="gsc-loading-overlay"></div>
+
+  <div class="gsc-app d-flex">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="gsc-sidebar d-flex flex-column">
+
+      <div class="gsc-sidebar-header d-flex align-items-center justify-content-between mb-3">
+        <button class="btn btn-link d-lg-none p-0 me-2" id="closeSidebarBtn">
+          <span class="material-icons">close</span>
+        </button>
+        <img src="images/logo_search_console.svg" class="img-fluid" style="width:230px;">
+      </div>
+
+      <nav class="gsc-nav flex-grow-1">
+
+        <div class="p-2">
+          <div class="gsc-property-selector position-relative">
+            <button class="btn btn-light border rounded-pill gsc-property-btn d-flex align-items-center gap-2" id="propertyBtn">
+              <span class="material-icons">search</span>
+              <span id="selectedPropertyLabel">Search property</span>
+              <span class="material-icons">arrow_drop_down</span>
+            </button>
+
+            <div class="gsc-property-dropdown shadow" id="propertyDropdown"></div>
+          </div>
+        </div>
+
+        <ul class="list-unstyled m-0">
+          <li><a href="index.html" class="gsc-nav-item active">
+              <span class="material-icons gsc-nav-icon">analytics</span> Overview
+            </a></li>
+
+          <li><a href="performance.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">show_chart</span> Performance
+            </a></li>
+
+          <li><a href="url_inspection.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">link</span> URL inspection
+            </a></li>
+        </ul>
+
+        <div class="gsc-nav-section-label">Indexing</div>
+        <ul class="list-unstyled m-0">
+          <li><a href="pages.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">article</span> Pages
+            </a></li>
+          <li><a href="video_pages.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">image</span> Video pages
+            </a></li>
+          <li><a href="sitemaps.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">book</span> Sitemaps
+            </a></li>
+        </ul>
+
+        <div class="gsc-nav-section-label">Experience</div>
+        <ul class="list-unstyled m-0">
+          <li><a href="core_web_vitals.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">speed</span> Core Web Vitals
+            </a></li>
+        </ul>
+
+        <div class="gsc-nav-section-label">Security & Manual Actions</div>
+        <ul class="list-unstyled m-0">
+          <li><a href="security_issues.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">security</span> Security issues
+            </a></li>
+        </ul>
+
+        <div class="gsc-nav-section-label">Legacy tools</div>
+        <ul class="list-unstyled m-0">
+          <li><a href="legacy_tools.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">build</span> Legacy tools
+            </a></li>
+        </ul>
+
+        <div class="gsc-nav-section-label">Settings</div>
+        <ul class="list-unstyled m-0">
+          <li><a href="settings.html" class="gsc-nav-item">
+              <span class="material-icons gsc-nav-icon">settings</span> Settings
+            </a></li>
+        </ul>
+
+      </nav>
+
+      <div class="gsc-sidebar-footer small text-muted">
+        © 2025 Google Clone – Demo UI
+      </div>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <div class="gsc-main flex-grow-1 d-flex flex-column">
+
+      <!-- TOP BAR -->
+      <header class="gsc-topbar">
+
+        <div class="gsc-center-search">
+          <div class="gsc-search-box">
+            <span class="material-icons search-icon">search</span>
+            <input id="inspectInput" type="text" placeholder='Inspect any URL in "https://domain.com/"'>
+          </div>
+        </div>
+
+        <div class="gsc-right-icons">
+          <span class="material-icons gsc-top-icon">help_outline</span>
+          <span class="material-icons gsc-top-icon">notifications_none</span>
+          <span class="material-icons gsc-top-icon">settings</span>
+          <div class="gsc-avatar">K</div>
+        </div>
+
+      </header>
+
+      <!-- CONTENT -->
+      <main class="gsc-content flex-grow-1">
+
+        <h5 class="mb-3">Overview</h5>
+
+        <!-- PERFORMANCE -->
+        <section class="card gsc-card mb-4">
+          <div class="card-body">
+
+            <div class="d-flex justify-content-between mb-2">
+              <h6 class="mb-0">Performance</h6>
+              <a href="performance.html" class="small">Full report</a>
+            </div>
+
+            <div class="text-muted small mb-2" id="overviewTotalClicks">
+              0 total web search clicks
+            </div>
+
+            <div class="gsc-chart-wrapper" style="height:220px;">
+              <canvas id="overviewPerformanceChart"></canvas>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- INDEXING -->
+        <section class="card gsc-card mb-4">
+          <div class="card-body">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="mb-0">Indexing</h6>
+              <a href="pages.html" class="small">Full report</a>
+            </div>
+
+            <div class="d-flex flex-wrap gap-4 mb-3">
+              <div class="small text-muted">
+                <span class="gsc-dot gsc-dot-grey"></span>
+                <span id="overviewIndexingNotIndexed" class="fw-semibold">0</span> not indexed pages
+              </div>
+
+              <div class="small text-muted">
+                <span class="gsc-dot gsc-dot-green"></span>
+                <span id="overviewIndexingIndexed" class="fw-semibold">0</span> indexed pages
+              </div>
+            </div>
+
+            <div class="gsc-chart-wrapper" style="height:230px;">
+              <canvas id="overviewIndexingChart"></canvas>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section class="card gsc-card mb-4">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="mb-0">Experience</h6>
+              <a href="core_web_vitals.html" class="small text-decoration-none">Full report</a>
+            </div>
+
+            <div class="gsc-table-wrapper">
+              <table class="gsc-metric-table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Good</th>
+                    <th>Needs improvement</th>
+                    <th>Poor</th>
+                    <th>Trend</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="fw-semibold small">Core Web Vitals</div>
+                      <div class="text-muted tiny">Mobile</div>
+                      <div class="text-muted tiny">Desktop</div>
+                    </td>
+                    <td>
+                      <div class="tiny"><span id="expCwvMobileGood">0</span></div>
+                      <div class="tiny"><span id="expCwvDesktopGood">0</span></div>
+                    </td>
+                    <td>
+                      <div class="tiny"><span id="expCwvMobileNi">0</span></div>
+                      <div class="tiny"><span id="expCwvDesktopNi">0</span></div>
+                    </td>
+                    <td>
+                      <div class="tiny"><span id="expCwvMobilePoor">0</span></div>
+                      <div class="tiny"><span id="expCwvDesktopPoor">0</span></div>
+                    </td>
+                    <td>
+                      <div class="gsc-sparkline-container">
+                        <canvas id="expCoreVitalsTrend"></canvas>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="fw-semibold small">HTTPS</div>
+                      <div class="text-muted tiny">HTTPS</div>
+                      <div class="text-muted tiny">Non-HTTPS</div>
+                    </td>
+                    <td>
+                      <div class="tiny"><span id="expHttpsGood">0</span></div>
+                      <div class="tiny"><span id="expNonHttpsGood">0</span></div>
+                    </td>
+                    <td>
+                      <div class="tiny"><span id="expHttpsNi">0</span></div>
+                      <div class="tiny"><span id="expNonHttpsNi">0</span></div>
+                    </td>
+                    <td>
+                      <div class="tiny"><span id="expHttpsPoor">0</span></div>
+                      <div class="tiny"><span id="expNonHttpsPoor">0</span></div>
+                    </td>
+                    <td>
+                      <div class="gsc-sparkline-container">
+                        <canvas id="expHttpsTrend"></canvas>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- SHOPPING -->
+        <section class="card gsc-card mb-4">
+          <div class="card-body">
+            <h6 class="mb-3">Shopping</h6>
+
+            <table class="gsc-metric-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Valid</th>
+                  <th>Invalid</th>
+                  <th>Trend</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="small fw-semibold">Product snippets</td>
+                  <td class="small"><span id="shopProductValid">0</span></td>
+                  <td class="small"><span id="shopProductInvalid">0</span></td>
+                  <td>
+                    <div class="gsc-sparkline-container">
+                      <canvas id="shopProductTrend"></canvas>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="small fw-semibold">Merchant listings</td>
+                  <td class="small"><span id="shopMerchantValid">0</span></td>
+                  <td class="small"><span id="shopMerchantInvalid">0</span></td>
+                  <td>
+                    <div class="gsc-sparkline-container">
+                      <canvas id="shopMerchantTrend"></canvas>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </section>
+
+        <!-- ENHANCEMENTS -->
+        <section class="card gsc-card mb-5">
+          <div class="card-body">
+            <h6 class="mb-3">Enhancements</h6>
+
+            <table class="gsc-metric-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Valid</th>
+                  <th>Invalid</th>
+                  <th>Trend</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="small fw-semibold">Breadcrumbs</td>
+                  <td class="small"><span id="enhBreadcrumbValid">0</span></td>
+                  <td class="small"><span id="enhBreadcrumbInvalid">0</span></td>
+                  <td>
+                    <div class="gsc-sparkline-container">
+                      <canvas id="enhBreadcrumbTrend"></canvas>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom JS -->
+  <script src="js/script.js"></script>
+
+</body>
+
+</html>
