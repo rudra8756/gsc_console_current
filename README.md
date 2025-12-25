@@ -1,0 +1,1 @@
+# gsc_console_current
