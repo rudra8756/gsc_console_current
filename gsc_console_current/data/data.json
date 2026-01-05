@@ -20,7 +20,38 @@
         "clicks":        [3,0,2,1,0,2,1,0,1,2,0,3,1,2,2,1,2,3,5],
         "impressions":   [40,22,60,33,25,55,42,39,51,65,55,72,40,58,61,45,62,69,75],
         "ctr":           [7.5,0,3.3,3.0,0,3.6,2.3,0,1.9,3.0,0,4.1,2.5,3.4,3.2,2.2,3.1,4.3,6.6],
-        "position":      [18,21,15,19,22,14,17,23,20,14,16,13,12,11,10,9,8,7,6]
+        "position":      [18,21,15,19,22,14,17,23,20,14,16,13,12,11,10,9,8,7,6],
+        "queries": [
+          {"query": "print aaja", "clicks": 15, "impressions": 200, "ctr": 7.5, "position": 12},
+          {"query": "printing services", "clicks": 8, "impressions": 150, "ctr": 5.3, "position": 8},
+          {"query": "online printing", "clicks": 12, "impressions": 180, "ctr": 6.7, "position": 10},
+          {"query": "custom printing", "clicks": 6, "impressions": 120, "ctr": 5.0, "position": 15},
+          {"query": "print shop near me", "clicks": 9, "impressions": 160, "ctr": 5.6, "position": 9}
+        ],
+        "pages": [
+          {"page": "/services", "clicks": 25, "impressions": 300, "ctr": 8.3, "position": 7},
+          {"page": "/products", "clicks": 18, "impressions": 250, "ctr": 7.2, "position": 9},
+          {"page": "/about", "clicks": 12, "impressions": 180, "ctr": 6.7, "position": 12},
+          {"page": "/contact", "clicks": 8, "impressions": 140, "ctr": 5.7, "position": 14},
+          {"page": "/pricing", "clicks": 15, "impressions": 220, "ctr": 6.8, "position": 11}
+        ],
+        "countries": [
+          {"country": "United States", "clicks": 20, "impressions": 280, "ctr": 7.1, "position": 8},
+          {"country": "India", "clicks": 18, "impressions": 260, "ctr": 6.9, "position": 9},
+          {"country": "United Kingdom", "clicks": 12, "impressions": 180, "ctr": 6.7, "position": 11},
+          {"country": "Canada", "clicks": 8, "impressions": 140, "ctr": 5.7, "position": 13},
+          {"country": "Australia", "clicks": 6, "impressions": 120, "ctr": 5.0, "position": 15}
+        ],
+        "devices": [
+          {"device": "Desktop", "clicks": 35, "impressions": 450, "ctr": 7.8, "position": 7},
+          {"device": "Mobile", "clicks": 28, "impressions": 380, "ctr": 7.4, "position": 8},
+          {"device": "Tablet", "clicks": 5, "impressions": 70, "ctr": 7.1, "position": 12}
+        ],
+        "search_appearance": [
+          {"appearance": "Rich results", "clicks": 22, "impressions": 300, "ctr": 7.3, "position": 6},
+          {"appearance": "Organic search", "clicks": 38, "impressions": 520, "ctr": 7.3, "position": 9},
+          {"appearance": "AMP results", "clicks": 8, "impressions": 80, "ctr": 10.0, "position": 4}
+        ]
       },
 
       "indexing": {
@@ -65,7 +96,11 @@
       },
 
       "enhancements": {
-        "breadcrumbs": { "valid": 2, "invalid": 0, "trend": [1,1,2,2,2] }
+        "breadcrumbs": { "valid": 2, "invalid": 0, "trend": [1,1,2,2,2] },
+        "faq": { "valid": 1, "invalid": 0, "trend": [0,1,1,1,1] },
+        "sitelinks": { "valid": 3, "invalid": 0, "trend": [1,1,1,1,1] },
+        "products": { "valid": 1, "invalid": 0, "trend": [0,1,1,1,1] },
+        "mobile_usability": { "valid": 5, "invalid": 0, "trend": [1,1,1,1,1] }
       }
     },
 
@@ -348,7 +383,11 @@
       },
 
       "enhancements": {
-        "breadcrumbs": { "valid": 1, "invalid": 0, "trend": [1,1,1,1,1] }
+        "breadcrumbs": { "valid": 1, "invalid": 0, "trend": [1,1,1,1,1] },
+        "faq": { "valid": 0, "invalid": 0, "trend": [0,0,0,0,0] },
+        "sitelinks": { "valid": 1, "invalid": 0, "trend": [0,1,1,1,1] },
+        "products": { "valid": 0, "invalid": 0, "trend": [0,0,0,0,0] },
+        "mobile_usability": { "valid": 2, "invalid": 0, "trend": [0,1,1,1,1] }
       }
     },
 
