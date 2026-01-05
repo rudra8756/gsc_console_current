@@ -1,352 +1,649 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Search Console - Overview</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Google Search Console - Overview</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
 
-  <!-- Material Icons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Chart.js -->
-  <script src="node_modules/chart.js/dist/chart.js"></script>
-</head>
+    <!-- Schema Markup for Google Search Console -->
+    <!-- Breadcrumbs Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://printaaja.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Category Name",
+          "item": "https://printaaja.com/category-name/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Product Name",
+          "item": "https://printaaja.com/product-name/"
+        }
+      ]
+    }
+    </script>
 
-<body data-page="overview">
+    <!-- Product Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "Product Name",
+      "image": [
+        "https://printaaja.com/wp-content/uploads/product-image.jpg"
+      ],
+      "description": "High quality customized printing product.",
+      "sku": "SKU12345",
+      "brand": {
+        "@type": "Brand",
+        "name": "Printaaja"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://printaaja.com/product-name/",
+        "priceCurrency": "INR",
+        "price": "499",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+    </script>
 
-  <div id="gscLoadingBar" class="gsc-loading-bar"></div>
-  <div id="gscLoadingOverlay" class="gsc-loading-overlay"></div>
+    <!-- Review / Rating Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "Product Name",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.6",
+        "reviewCount": "128"
+      }
+    }
+    </script>
 
-  <div class="gsc-app d-flex">
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Printaaja",
+      "url": "https://printaaja.com/",
+      "logo": "https://printaaja.com/logo.png",
+      "sameAs": [
+        "https://www.facebook.com/printaaja",
+        "https://www.instagram.com/printaaja"
+      ]
+    }
+    </script>
+  </head>
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="gsc-sidebar d-flex flex-column">
+  <body data-page="overview">
+    <div id="gscLoadingBar" class="gsc-loading-bar"></div>
+    <div id="gscLoadingOverlay" class="gsc-loading-overlay"></div>
 
-      <div class="gsc-sidebar-header d-flex align-items-center justify-content-between mb-3">
-        <button class="btn btn-link d-lg-none p-0 me-2" id="closeSidebarBtn">
-          <span class="material-icons">close</span>
-        </button>
-        <img src="images/logo_search_console.svg" class="img-fluid" style="width:230px;">
-      </div>
-
-      <nav class="gsc-nav flex-grow-1">
-
-        <div class="p-2">
-          <div class="gsc-property-selector position-relative">
-            <button class="btn btn-light border rounded-pill gsc-property-btn d-flex align-items-center gap-2" id="propertyBtn">
-              <span class="material-icons">search</span>
-              <span id="selectedPropertyLabel">Search property</span>
-              <span class="material-icons">arrow_drop_down</span>
-            </button>
-
-            <div class="gsc-property-dropdown shadow" id="propertyDropdown"></div>
-          </div>
+    <div class="gsc-app d-flex">
+      <!-- SIDEBAR -->
+      <aside id="sidebar" class="gsc-sidebar d-flex flex-column">
+        <div
+          class="gsc-sidebar-header d-flex align-items-center justify-content-between mb-3"
+        >
+          <button class="btn gsc-sidebar-toggle p-0 me-2" id="openSidebarBtn">
+            <span class="material-icons">menu</span>
+          </button>
+          <button class="btn btn-link d-lg-none p-0 me-2" id="closeSidebarBtn">
+            <span class="material-icons">close</span>
+          </button>
+          <img
+            src="images/logo_search_console.svg"
+            class="img-fluid"
+            style="width: 230px"
+          />
         </div>
 
-        <ul class="list-unstyled m-0">
-          <li><a href="index.html" class="gsc-nav-item active">
-              <span class="material-icons gsc-nav-icon">analytics</span> Overview
-            </a></li>
+        <nav class="gsc-nav flex-grow-1">
+          <div class="p-2">
+            <div class="gsc-property-selector position-relative">
+              <button
+                class="btn btn-light border rounded-pill gsc-property-btn d-flex align-items-center gap-2"
+                id="propertyBtn"
+              >
+                <span class="material-icons">search</span>
+                <span id="selectedPropertyLabel">Search property</span>
+                <span class="material-icons">arrow_drop_down</span>
+              </button>
 
-          <li><a href="performance.html" class="gsc-nav-item">
-              <span class="material-icons gsc-nav-icon">show_chart</span> Performance
-            </a></li>
-
-          <li><a href="url_inspection.html" class="gsc-nav-item">
-              <span class="material-icons gsc-nav-icon">link</span> URL inspection
-            </a></li>
-        </ul>
-
-        <div class="gsc-nav-section-label">Indexing</div>
-        <ul class="list-unstyled m-0">
-          <li><a href="pages.html" class="gsc-nav-item">
-              <span class="material-icons gsc-nav-icon">article</span> Pages
-            </a></li>
-          <li><a href="video_pages.html" class="gsc-nav-item">
-              <span class="material-icons gsc-nav-icon">image</span> Video pages
-            </a></li>
-          <li><a href="sitemaps.html" class="gsc-nav-item">
-              <span class="material-icons gsc-nav-icon">book</span> Sitemaps
-            </a></li>
-        </ul>
-
-        <div class="gsc-nav-section-label">Experience</div>
-        <ul class="list-unstyled m-0">
-          <li><a href="core_web_vitals.html" class="gsc-nav-item">
-              <span class="material-icons gsc-nav-icon">speed</span> Core Web Vitals
-            </a></li>
-        </ul>
-
-        <div class="gsc-nav-section-label">Security & Manual Actions</div>
-        <ul class="list-unstyled m-0">
-          <li><a href="security_issues.html" class="gsc-nav-item">
-              <span class="material-icons gsc-nav-icon">security</span> Security issues
-            </a></li>
-        </ul>
-
-        <div class="gsc-nav-section-label">Legacy tools</div>
-        <ul class="list-unstyled m-0">
-          <li><a href="legacy_tools.html" class="gsc-nav-item">
-              <span class="material-icons gsc-nav-icon">build</span> Legacy tools
-            </a></li>
-        </ul>
-
-        <div class="gsc-nav-section-label">Settings</div>
-        <ul class="list-unstyled m-0">
-          <li><a href="settings.html" class="gsc-nav-item">
-              <span class="material-icons gsc-nav-icon">settings</span> Settings
-            </a></li>
-        </ul>
-
-      </nav>
-
-      <div class="gsc-sidebar-footer small text-muted">
-        © 2025 Google Clone – Demo UI
-      </div>
-    </aside>
-
-    <!-- MAIN AREA -->
-    <div class="gsc-main flex-grow-1 d-flex flex-column">
-
-      <!-- TOP BAR -->
-      <header class="gsc-topbar">
-
-        <div class="gsc-center-search">
-          <div class="gsc-search-box">
-            <span class="material-icons search-icon">search</span>
-            <input id="inspectInput" type="text" placeholder='Inspect any URL in "https://domain.com/"'>
+              <div
+                class="gsc-property-dropdown shadow"
+                id="propertyDropdown"
+              ></div>
+            </div>
           </div>
+
+          <ul class="list-unstyled m-0">
+            <li>
+              <a href="index.html" class="gsc-nav-item active">
+                <span class="material-icons gsc-nav-icon">analytics</span>
+                Overview
+              </a>
+            </li>
+
+            <li>
+              <a href="insights.html" class="gsc-nav-item">
+                <span class="material-icons gsc-nav-icon">lightbulb</span>
+                Insights
+              </a>
+            </li>
+
+            <li>
+              <a href="performance.html" class="gsc-nav-item">
+                <span class="material-icons gsc-nav-icon">show_chart</span>
+                Performance
+              </a>
+            </li>
+
+            <li>
+              <a href="url_inspection.html" class="gsc-nav-item">
+                <span class="material-icons gsc-nav-icon">link</span> URL
+                inspection
+              </a>
+            </li>
+          </ul>
+
+          <div class="gsc-nav-section-label">Indexing</div>
+          <ul class="list-unstyled m-0">
+            <li>
+              <a href="pages.html" class="gsc-nav-item">
+                <span class="material-icons gsc-nav-icon">article</span> Pages
+              </a>
+            </li>
+            <li>
+              <a href="video_pages.html" class="gsc-nav-item">
+                <span class="material-icons gsc-nav-icon">image</span> Video
+                pages
+              </a>
+            </li>
+            <li>
+              <a href="sitemaps.html" class="gsc-nav-item">
+                <span class="material-icons gsc-nav-icon">book</span> Sitemaps
+              </a>
+            </li>
+          </ul>
+
+          <div class="gsc-nav-section-label">Experience</div>
+          <ul class="list-unstyled m-0">
+            <li>
+              <a href="core_web_vitals.html" class="gsc-nav-item">
+                <span class="material-icons gsc-nav-icon">speed</span> Core Web
+                Vitals
+              </a>
+            </li>
+          </ul>
+
+          <div class="gsc-nav-section-label">Security & Manual Actions</div>
+          <ul class="list-unstyled m-0">
+            <li>
+              <a href="security_issues.html" class="gsc-nav-item">
+                <span class="material-icons gsc-nav-icon">security</span>
+                Security issues
+              </a>
+            </li>
+          </ul>
+
+          <div class="gsc-nav-section-label">Legacy tools</div>
+          <ul class="list-unstyled m-0">
+            <li>
+              <a href="legacy_tools.html" class="gsc-nav-item">
+                <span class="material-icons gsc-nav-icon">build</span> Legacy
+                tools
+              </a>
+            </li>
+          </ul>
+
+          <div class="gsc-nav-section-label">Settings</div>
+          <ul class="list-unstyled m-0">
+            <li>
+              <a href="settings.html" class="gsc-nav-item">
+                <span class="material-icons gsc-nav-icon">settings</span>
+                Settings
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="gsc-sidebar-footer small text-muted">
+          © 2025 Google Clone – Demo UI
         </div>
+      </aside>
 
-        <div class="gsc-right-icons">
-          <span class="material-icons gsc-top-icon">help_outline</span>
-          <span class="material-icons gsc-top-icon">notifications_none</span>
-          <span class="material-icons gsc-top-icon">settings</span>
-          <div class="gsc-avatar">K</div>
-        </div>
-
-      </header>
-
-      <!-- CONTENT -->
-      <main class="gsc-content flex-grow-1">
-
-        <h5 class="mb-3">Overview</h5>
-
-        <!-- PERFORMANCE -->
-        <section class="card gsc-card mb-4">
-          <div class="card-body">
-
-            <div class="d-flex justify-content-between mb-2">
-              <h6 class="mb-0">Performance</h6>
-              <a href="performance.html" class="small">Full report</a>
+      <!-- MAIN AREA -->
+      <div class="gsc-main flex-grow-1 d-flex flex-column">
+        <!-- TOP BAR -->
+        <header class="gsc-topbar">
+          <div class="gsc-center-search">
+            <div class="gsc-search-box">
+              <span class="material-icons search-icon">search</span>
+              <input
+                id="inspectInput"
+                type="text"
+                placeholder='Inspect any URL in "https://domain.com/"'
+              />
             </div>
-
-            <div class="text-muted small mb-2" id="overviewTotalClicks">
-              0 total web search clicks
-            </div>
-
-            <div class="gsc-chart-wrapper" style="height:220px;">
-              <canvas id="overviewPerformanceChart"></canvas>
-            </div>
-
           </div>
-        </section>
 
-        <!-- INDEXING -->
-        <section class="card gsc-card mb-4">
-          <div class="card-body">
+          <div class="gsc-right-icons">
+            <span class="material-icons gsc-top-icon">help_outline</span>
+            <span class="material-icons gsc-top-icon">notifications_none</span>
+            <span class="material-icons gsc-top-icon">settings</span>
+            <div class="gsc-avatar">K</div>
+          </div>
+        </header>
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h6 class="mb-0">Indexing</h6>
-              <a href="pages.html" class="small">Full report</a>
-            </div>
+        <!-- CONTENT -->
+        <main class="gsc-content flex-grow-1">
+          <h5 class="mb-3">Overview</h5>
+          <!-- FILTER BAR -->
+          <div class="gsc-filter-bar d-flex align-items-center justify-content-between mb-4">
+            <div class="d-flex gap-3 align-items-center">
+              <!-- TIME RANGE SINGLE PILL -->
+              <div class="gsc-time-pill">
+                <button class="gsc-time-pill-btn active" data-value="24hours">24 hours</button>
+                <button class="gsc-time-pill-btn" data-value="7days">7 days</button>
+                <button class="gsc-time-pill-btn" data-value="28days">28 days</button>
+                <button class="gsc-time-pill-btn" data-value="3months">3 months</button>
 
-            <div class="d-flex flex-wrap gap-4 mb-3">
-              <div class="small text-muted">
-                <span class="gsc-dot gsc-dot-grey"></span>
-                <span id="overviewIndexingNotIndexed" class="fw-semibold">0</span> not indexed pages
+                <button class="gsc-time-pill-btn" type="button" data-bs-toggle="modal" data-bs-target="#dateRangeModal">
+                  More
+                </button>
               </div>
 
-              <div class="small text-muted">
-                <span class="gsc-dot gsc-dot-green"></span>
-                <span id="overviewIndexingIndexed" class="fw-semibold">0</span> indexed pages
+                <!-- Search Type Filter -->
+                <div class="dropdown">
+                  <button class="btn btn-outline-secondary dropdown-toggle gsc-search-type-btn" type="button" id="searchTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Search type: Web
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="searchTypeDropdown">
+                    <li><a class="dropdown-item active" href="#" data-value="web">Web</a></li>
+                    <li><a class="dropdown-item" href="#" data-value="image">Image</a></li>
+                    <li><a class="dropdown-item" href="#" data-value="video">Video</a></li>
+                    <li><a class="dropdown-item" href="#" data-value="news">News</a></li>
+                  </ul>
+                </div>
+
+                <!--Filter Type Dropdown -->
+                <div class="dropdown">
+                  <button class="btn btn-outline-secondary dropdown-toggle gsc-filter-type-btn" type="button" id="filterTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Filter
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="filterTypeDropdown">
+                    <li><a class="dropdown-item active" href="#" data-value="all">Query</a></li>
+                    <li><a class="dropdown-item" href="#" data-value="internal">Page</a></li>
+                    <li><a class="dropdown-item" href="#" data-value="external">Country</a></li>
+                    <li><a class="dropdown-item" href="#" data-value="custom">Device</a></li>
+                    <li><a class="dropdown-item" href="#" data-value="custom">Search appearance</a></li>
+
+                  </ul>
+                </div>
+
+                <!-- Reset Filters Button -->
+                <button class="btn btn-outline-secondary" id="resetFiltersBtn">Reset filters</button>
+              </div>
+          </div>
+
+          <!-- INDEXING -->
+          <div class="row mb-4">
+            <div class="col-lg-12 mb-4">
+              <section class="card gsc-card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="mb-0">Indexing</h6>
+                    <a href="pages.html" class="small">Full report</a>
+                  </div>
+
+                  <div class="d-flex flex-wrap gap-4 mb-3">
+                    <div class="small text-muted">
+                      <span class="gsc-dot gsc-dot-grey"></span>
+                      <span id="overviewIndexingNotIndexed" class="fw-semibold">420</span>
+                      not indexed pages
+                    </div>
+
+                    <div class="small text-muted">
+                      <span class="gsc-dot gsc-dot-green"></span>
+                      <span id="overviewIndexingIndexed" class="fw-semibold">120</span>
+                      indexed pages
+                    </div>
+                  </div>
+
+                  <div class="gsc-chart-wrapper" style="height: 230px">
+                    <canvas id="overviewIndexingChart" style="box-sizing: border-box; display: block; height: 230px; width: 3.24336e+06px;" width="4054201" height="287"></canvas>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <!-- EXPERIENCE -->
+          <section class="card gsc-card mb-4">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="mb-0">Experience</h6>
+                <a href="core_web_vitals.html" class="small text-decoration-none">Full report</a>
+              </div>
+
+              <div class="gsc-table-wrapper">
+                <table class="gsc-metric-table">
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>Good</th>
+                      <th>Needs improvement</th>
+                      <th>Poor</th>
+                      <th>Trend</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="fw-semibold small">Core Web Vitals</div>
+                        <div class="text-muted tiny">Mobile</div>
+                        <div class="text-muted tiny">Desktop</div>
+                      </td>
+                      <td>
+                        <div class="tiny">
+                          <span id="expCwvMobileGood">3</span>
+                        </div>
+                        <div class="tiny">
+                          <span id="expCwvDesktopGood">5</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="tiny">
+                          <span id="expCwvMobileNi">1</span>
+                        </div>
+                        <div class="tiny">
+                          <span id="expCwvDesktopNi">0</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="tiny">
+                          <span id="expCwvMobilePoor">2</span>
+                        </div>
+                        <div class="tiny">
+                          <span id="expCwvDesktopPoor">0</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="gsc-sparkline-container">
+                          <canvas id="expCoreVitalsTrend" width="375" height="187" style="display: block; box-sizing: border-box; height: 150px; width: 300px;"></canvas>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="fw-semibold small">HTTPS</div>
+                        <div class="text-muted tiny">HTTPS</div>
+                        <div class="text-muted tiny">Non-HTTPS</div>
+                      </td>
+                      <td>
+                        <div class="tiny"><span id="expHttpsGood">20</span></div>
+                        <div class="tiny">
+                          <span id="expNonHttpsGood">0</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="tiny"><span id="expHttpsNi">0</span></div>
+                        <div class="tiny">
+                          <span id="expNonHttpsNi">0</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="tiny"><span id="expHttpsPoor">0</span></div>
+                        <div class="tiny">
+                          <span id="expNonHttpsPoor">0</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="gsc-sparkline-container">
+                          <canvas id="expHttpsTrend" width="375" height="187" style="display: block; box-sizing: border-box; height: 150px; width: 300px;"></canvas>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
+          </section>
 
-            <div class="gsc-chart-wrapper" style="height:230px;">
-              <canvas id="overviewIndexingChart"></canvas>
-            </div>
+          <!-- SHOPPING -->
+          <section class="card gsc-card mb-4">
+            <div class="card-body">
+              <h6 class="mb-3">Shopping</h6>
 
-          </div>
-        </section>
-
-        <!-- EXPERIENCE -->
-        <section class="card gsc-card mb-4">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h6 class="mb-0">Experience</h6>
-              <a href="core_web_vitals.html" class="small text-decoration-none">Full report</a>
-            </div>
-
-            <div class="gsc-table-wrapper">
               <table class="gsc-metric-table">
                 <thead>
                   <tr>
                     <th>Type</th>
-                    <th>Good</th>
-                    <th>Needs improvement</th>
-                    <th>Poor</th>
+                    <th>Valid</th>
+                    <th>Invalid</th>
                     <th>Trend</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>
-                      <div class="fw-semibold small">Core Web Vitals</div>
-                      <div class="text-muted tiny">Mobile</div>
-                      <div class="text-muted tiny">Desktop</div>
-                    </td>
-                    <td>
-                      <div class="tiny"><span id="expCwvMobileGood">0</span></div>
-                      <div class="tiny"><span id="expCwvDesktopGood">0</span></div>
-                    </td>
-                    <td>
-                      <div class="tiny"><span id="expCwvMobileNi">0</span></div>
-                      <div class="tiny"><span id="expCwvDesktopNi">0</span></div>
-                    </td>
-                    <td>
-                      <div class="tiny"><span id="expCwvMobilePoor">0</span></div>
-                      <div class="tiny"><span id="expCwvDesktopPoor">0</span></div>
+                    <td class="small fw-semibold">Product snippets</td>
+                    <td class="small"><span id="shopProductValid">1</span></td>
+                    <td class="small">
+                      <span id="shopProductInvalid">0</span>
                     </td>
                     <td>
                       <div class="gsc-sparkline-container">
-                        <canvas id="expCoreVitalsTrend"></canvas>
+                        <canvas id="shopProductTrend" width="375" height="187" style="display: block; box-sizing: border-box; height: 150px; width: 300px;"></canvas>
                       </div>
                     </td>
                   </tr>
-
                   <tr>
-                    <td>
-                      <div class="fw-semibold small">HTTPS</div>
-                      <div class="text-muted tiny">HTTPS</div>
-                      <div class="text-muted tiny">Non-HTTPS</div>
-                    </td>
-                    <td>
-                      <div class="tiny"><span id="expHttpsGood">0</span></div>
-                      <div class="tiny"><span id="expNonHttpsGood">0</span></div>
-                    </td>
-                    <td>
-                      <div class="tiny"><span id="expHttpsNi">0</span></div>
-                      <div class="tiny"><span id="expNonHttpsNi">0</span></div>
-                    </td>
-                    <td>
-                      <div class="tiny"><span id="expHttpsPoor">0</span></div>
-                      <div class="tiny"><span id="expNonHttpsPoor">0</span></div>
+                    <td class="small fw-semibold">Merchant listings</td>
+                    <td class="small"><span id="shopMerchantValid">0</span></td>
+                    <td class="small">
+                      <span id="shopMerchantInvalid">0</span>
                     </td>
                     <td>
                       <div class="gsc-sparkline-container">
-                        <canvas id="expHttpsTrend"></canvas>
+                        <canvas id="shopMerchantTrend" width="375" height="187" style="display: block; box-sizing: border-box; height: 150px; width: 300px;"></canvas>
                       </div>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <!-- SHOPPING -->
-        <section class="card gsc-card mb-4">
-          <div class="card-body">
-            <h6 class="mb-3">Shopping</h6>
+          <!-- ENHANCEMENTS -->
+          <section class="card gsc-card mb-5">
+            <div class="card-body">
+              <h6 class="mb-3">Enhancements</h6>
 
-            <table class="gsc-metric-table">
-              <thead>
-                <tr>
-                  <th>Type</th>
-                  <th>Valid</th>
-                  <th>Invalid</th>
-                  <th>Trend</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="small fw-semibold">Product snippets</td>
-                  <td class="small"><span id="shopProductValid">0</span></td>
-                  <td class="small"><span id="shopProductInvalid">0</span></td>
-                  <td>
-                    <div class="gsc-sparkline-container">
-                      <canvas id="shopProductTrend"></canvas>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="small fw-semibold">Merchant listings</td>
-                  <td class="small"><span id="shopMerchantValid">0</span></td>
-                  <td class="small"><span id="shopMerchantInvalid">0</span></td>
-                  <td>
-                    <div class="gsc-sparkline-container">
-                      <canvas id="shopMerchantTrend"></canvas>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+              <table class="gsc-metric-table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Valid</th>
+                    <th>Invalid</th>
+                    <th>Trend</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="small fw-semibold">Breadcrumbs</td>
+                    <td class="small">
+                      <span id="enhBreadcrumbValid">2</span>
+                    </td>
+                    <td class="small">
+                      <span id="enhBreadcrumbInvalid">0</span>
+                    </td>
+                    <td>
+                      <div class="gsc-sparkline-container">
+                        <canvas id="enhBreadcrumbTrend" width="375" height="187" style="display: block; box-sizing: border-box; height: 150px; width: 300px;"></canvas>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
 
-          </div>
-        </section>
-
-        <!-- ENHANCEMENTS -->
-        <section class="card gsc-card mb-5">
-          <div class="card-body">
-            <h6 class="mb-3">Enhancements</h6>
-
-            <table class="gsc-metric-table">
-              <thead>
-                <tr>
-                  <th>Type</th>
-                  <th>Valid</th>
-                  <th>Invalid</th>
-                  <th>Trend</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="small fw-semibold">Breadcrumbs</td>
-                  <td class="small"><span id="enhBreadcrumbValid">0</span></td>
-                  <td class="small"><span id="enhBreadcrumbInvalid">0</span></td>
-                  <td>
-                    <div class="gsc-sparkline-container">
-                      <canvas id="enhBreadcrumbTrend"></canvas>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-          </div>
-        </section>
-
-      </main>
+      </div>
     </div>
-  </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Custom JS -->
-  <script src="js/script.js"></script>
+    <!-- Date Range Modal -->
+    <div class="gsc-date-modal" id="gscDateModal">
+      <div class="gsc-date-box">
 
-</body>
+        <h3>Date range</h3>
 
+        <div class="gsc-date-tabs">
+          <button class="active">Filter</button>
+          <button>Compare</button>
+        </div>
+
+    <div class="gsc-date-options">
+      <label><input type="radio" name="date" value="6months" checked> Last 6 months</label>
+      <label><input type="radio" name="date" value="12months"> Last 12 months</label>
+      <label><input type="radio" name="date" value="16months"> Last 16 months</label>
+      <label><input type="radio" name="date" value="custom"> Custom</label>
+
+      <div class="gsc-custom-date">
+        <input type="date">
+        <span>—</span>
+        <input type="date">
+      </div>
+    </div>
+
+        <div class="gsc-date-actions">
+          <button class="cancel">Cancel</button>
+          <button class="apply">Apply</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Date Range Modal -->
+    <div class="modal fade gsc-date-range-modal" id="dateRangeModal" tabindex="-1" aria-labelledby="dateRangeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="dateRangeModalLabel">Date range</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="dateRangeTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="filter-tab" data-bs-toggle="tab" data-bs-target="#filter" type="button" role="tab" aria-controls="filter" aria-selected="true">Filter</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="compare-tab" data-bs-toggle="tab" data-bs-target="#compare" type="button" role="tab" aria-controls="compare" aria-selected="false">Compare</button>
+              </li>
+            </ul>
+            <div class="tab-content mt-3" id="dateRangeTabsContent">
+              <div class="tab-pane fade show active" id="filter" role="tabpanel" aria-labelledby="filter-tab">
+                <div class="gsc-date-range-options">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dateRange" id="last6months" value="6months" checked>
+                    <label class="form-check-label" for="last6months">
+                      Last 6 months
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dateRange" id="last12months" value="12months">
+                    <label class="form-check-label" for="last12months">
+                      Last 12 months
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dateRange" id="last16months" value="16months">
+                    <label class="form-check-label" for="last16months">
+                      Last 16 months
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dateRange" id="custom" value="custom">
+                    <label class="form-check-label" for="custom">
+                      Custom
+                    </label>
+                  </div>
+                </div>
+                <div class="gsc-custom-date-range mt-3" id="customDateRange" style="display: none;">
+                  <div class="row g-2">
+                    <div class="col-md-6">
+                      <label for="startDate" class="form-label">Start date</label>
+                      <div class="input-group">
+                        <input type="date" class="form-control" id="startDate" name="startDate">
+                        <span class="input-group-text"><span class="material-icons">calendar_today</span></span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="endDate" class="form-label">End date</label>
+                      <div class="input-group">
+                        <input type="date" class="form-control" id="endDate" name="endDate">
+                        <span class="input-group-text"><span class="material-icons">calendar_today</span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="compare" role="tabpanel" aria-labelledby="compare-tab">
+                <p class="text-muted">Compare functionality coming soon...</p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="applyDateRange">Apply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+  </body>
 </html>
